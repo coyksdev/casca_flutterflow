@@ -97,7 +97,8 @@ class _OnBoardingPageWidgetState extends State<OnBoardingPageWidget> {
                                 dotWidth: 16,
                                 dotHeight: 16,
                                 dotColor: Color(0xFF9E9E9E),
-                                activeDotColor: Color(0xFF3F51B5),
+                                activeDotColor:
+                                    FlutterFlowTheme.of(context).primaryColor,
                                 paintStyle: PaintingStyle.fill,
                               ),
                             ),
