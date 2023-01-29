@@ -8,11 +8,9 @@ class PrimaryButtonWidget extends StatefulWidget {
   const PrimaryButtonWidget({
     Key? key,
     this.label,
-    this.onPressed,
   }) : super(key: key);
 
   final String? label;
-  final VoidCallback? onPressed;
 
   @override
   _PrimaryButtonWidgetState createState() => _PrimaryButtonWidgetState();
@@ -22,7 +20,9 @@ class _PrimaryButtonWidgetState extends State<PrimaryButtonWidget> {
   @override
   Widget build(BuildContext context) {
     return FFButtonWidget(
-      onPressed: widget.onPressed,
+      onPressed: () {
+        print('Button pressed ...');
+      },
       text: widget.label!,
       options: FFButtonOptions(
         width: double.infinity,
