@@ -15,18 +15,13 @@ class OnBoardingPageWidget extends StatefulWidget {
 }
 
 class _OnBoardingPageWidgetState extends State<OnBoardingPageWidget> {
-  PageController pageViewController = PageController(initialPage: 0);
+  PageController? pageViewController;
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  int? _currentPage;
 
   @override
   void dispose() {
     _unfocusNode.dispose();
-
-    _currentPage = 0;
-
     super.dispose();
   }
 
@@ -53,13 +48,9 @@ class _OnBoardingPageWidgetState extends State<OnBoardingPageWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 50),
                           child: PageView(
-                            controller: pageViewController,
+                            controller: pageViewController ??=
+                                PageController(initialPage: 0),
                             scrollDirection: Axis.horizontal,
-                            onPageChanged: (i) {
-                              setState(() {
-                                _currentPage = i;
-                              });
-                            },
                             children: [
                               OnBoardingItemWidget(
                                 imageUrl:
@@ -88,7 +79,8 @@ class _OnBoardingPageWidgetState extends State<OnBoardingPageWidget> {
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
                             child: smooth_page_indicator.SmoothPageIndicator(
-                              controller: pageViewController,
+                              controller: pageViewController ??=
+                                  PageController(initialPage: 0),
                               count: 3,
                               axisDirection: Axis.horizontal,
                               onDotClicked: (i) {
@@ -105,7 +97,8 @@ class _OnBoardingPageWidgetState extends State<OnBoardingPageWidget> {
                                 dotWidth: 16,
                                 dotHeight: 16,
                                 dotColor: Color(0xFF9E9E9E),
-                                activeDotColor: Color(0xFF3F51B5),
+                                activeDotColor:
+                                    FlutterFlowTheme.of(context).primaryColor,
                                 paintStyle: PaintingStyle.fill,
                               ),
                             ),
@@ -118,17 +111,8 @@ class _OnBoardingPageWidgetState extends State<OnBoardingPageWidget> {
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
                   child: PrimaryButtonWidget(
-                    label: (_currentPage ?? 0) < 2 ? 'Next' : 'Get Started',
-                    onPressed: () {
-                      if ((_currentPage ?? 0) < 2) {
-                        pageViewController.nextPage(
-                          duration: Duration(milliseconds: 500),
-                          curve: Curves.ease,
-                        );
-                      } else {
-                        print('Get Started pressed ...');
-                      }
-                    },
+                    label: 'Next',
+                    onPressed: () async {},
                   ),
                 ),
               ],
