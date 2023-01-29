@@ -112,6 +112,7 @@ class _OnBoardingPageWidgetState extends State<OnBoardingPageWidget> {
                   padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
                   child: PrimaryButtonWidget(
                     label: 'Next',
+                    onPressed: () async {},
                   ),
                 ),
               ],

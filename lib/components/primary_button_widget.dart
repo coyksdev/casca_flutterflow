@@ -8,9 +8,11 @@ class PrimaryButtonWidget extends StatefulWidget {
   const PrimaryButtonWidget({
     Key? key,
     this.label,
+    this.onPressed,
   }) : super(key: key);
 
   final String? label;
+  final Future<dynamic> Function()? onPressed;
 
   @override
   _PrimaryButtonWidgetState createState() => _PrimaryButtonWidgetState();
