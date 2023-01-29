@@ -15,13 +15,18 @@ class OnBoardingPageWidget extends StatefulWidget {
 }
 
 class _OnBoardingPageWidgetState extends State<OnBoardingPageWidget> {
-  PageController? pageViewController;
+  PageController pageViewController = PageController(initialPage: 0);
   final _unfocusNode = FocusNode();
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  int? _currentPage;
 
   @override
   void dispose() {
     _unfocusNode.dispose();
+
+    _currentPage = 0;
+
     super.dispose();
   }
 
@@ -48,9 +53,13 @@ class _OnBoardingPageWidgetState extends State<OnBoardingPageWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 50),
                           child: PageView(
-                            controller: pageViewController ??=
-                                PageController(initialPage: 0),
+                            controller: pageViewController,
                             scrollDirection: Axis.horizontal,
+                            onPageChanged: (i) {
+                              setState(() {
+                                _currentPage = i;
+                              });
+                            },
                             children: [
                               OnBoardingItemWidget(
                                 imageUrl:
@@ -79,8 +88,7 @@ class _OnBoardingPageWidgetState extends State<OnBoardingPageWidget> {
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(0, 0, 0, 10),
                             child: smooth_page_indicator.SmoothPageIndicator(
-                              controller: pageViewController ??=
-                                  PageController(initialPage: 0),
+                              controller: pageViewController,
                               count: 3,
                               axisDirection: Axis.horizontal,
                               onDotClicked: (i) {
@@ -110,7 +118,17 @@ class _OnBoardingPageWidgetState extends State<OnBoardingPageWidget> {
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
                   child: PrimaryButtonWidget(
-                    label: 'Next',
+                    label: (_currentPage ?? 0) < 2 ? 'Next' : 'Get Started',
+                    onPressed: () {
+                      if ((_currentPage ?? 0) < 2) {
+                        pageViewController.nextPage(
+                          duration: Duration(milliseconds: 500),
+                          curve: Curves.ease,
+                        );
+                      } else {
+                        print('Get Started pressed ...');
+                      }
+                    },
                   ),
                 ),
               ],
