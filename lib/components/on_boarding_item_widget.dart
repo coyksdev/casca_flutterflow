@@ -38,9 +38,11 @@ class _OnBoardingItemWidgetState extends State<OnBoardingItemWidget> {
           widget.title!,
           textAlign: TextAlign.center,
           style: FlutterFlowTheme.of(context).title1.override(
-                fontFamily: 'Urbanist',
+                fontFamily: FlutterFlowTheme.of(context).title1Family,
                 fontSize: 40,
                 fontWeight: FontWeight.bold,
+                useGoogleFonts: GoogleFonts.asMap()
+                    .containsKey(FlutterFlowTheme.of(context).title1Family),
               ),
         ),
         Spacer(),
